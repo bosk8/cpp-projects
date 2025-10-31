@@ -21,6 +21,16 @@
           <span class="copy-icon" aria-hidden="true">i</span>
           <div class="tooltip" id="csv-help" role="tooltip">Upload a CSV. First row is treated as header.</div>
         </div>
+        <!-- Test Helper: Quick Load CSV Files -->
+        <div style="margin-top: var(--space-1); padding-top: var(--space-1); border-top: 1px solid var(--border-color);">
+          <div class="label" style="font-size: 0.75rem; color: var(--text-dim);">TEST HELPER (Load Sample CSVs):</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
+            <button class="b8-btn" onclick="testHelper.uploadCSV(testHelper.sampleCSV, 'sample.csv')" style="padding: 0.5rem;"><span class="meta" style="font-size: 0.75rem;">Load sample.csv</span></button>
+            <button class="b8-btn" onclick="testHelper.uploadCSV(testHelper.quotedFieldsCSV, 'quoted_fields.csv')" style="padding: 0.5rem;"><span class="meta" style="font-size: 0.75rem;">Load quoted_fields.csv</span></button>
+            <button class="b8-btn" onclick="testHelper.uploadCSV(testHelper.emptyRowsCSV, 'empty_rows.csv')" style="padding: 0.5rem;"><span class="meta" style="font-size: 0.75rem;">Load empty_rows.csv</span></button>
+            <button class="b8-btn" onclick="testHelper.uploadCSV(testHelper.specialCharsCSV, 'special_chars.csv')" style="padding: 0.5rem;"><span class="meta" style="font-size: 0.75rem;">Load special_chars.csv</span></button>
+          </div>
+        </div>
       </section>
 
       <section class="card border-b" id="filter-section" style="display:none; padding: var(--space-2) var(--space-1); gap: var(--space-1);">
@@ -63,6 +73,7 @@
     </div>
   </main>
   <script src="./app.js"></script>
+  <script src="./test-ui-helper.js"></script>
   <script>
     // Mobile tooltip toggle
     document.querySelectorAll('.tooltip-trigger').forEach(function(el){

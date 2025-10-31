@@ -50,10 +50,14 @@
 
   function compare(op, a, b) {
     if (op === 'contains') return String(a).indexOf(String(b)) !== -1;
+    // String operators use string comparison
+    if (op === '==') return String(a) === String(b);
+    if (op === '!=') return String(a) !== String(b);
+    // Numeric operators: only match if both values are valid numbers
+    // This matches C++ behavior where std::stod throws on invalid input
     var an = Number(a), bn = Number(b);
+    if (isNaN(an) || isNaN(bn)) return false; // Non-numeric values fail numeric comparisons
     switch(op) {
-      case '==': return String(a) === String(b);
-      case '!=': return String(a) !== String(b);
       case '>': return an > bn;
       case '<': return an < bn;
       case '>=': return an >= bn;
@@ -146,12 +150,15 @@
   exportBtn.addEventListener('click', function(ev){
     ev.preventDefault();
     var blob = new Blob([resultsPre.textContent || ''], {type: 'text/csv'});
+    var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = 'results.csv';
     document.body.appendChild(a);
     a.click();
     a.remove();
+    // Revoke object URL to prevent memory leak
+    setTimeout(function() { URL.revokeObjectURL(url); }, 100);
   });
 })();
 
